@@ -24,7 +24,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Github](https://github.com/1deadjoe/loopstudios-landing-page)
-- Live Site URL: [Vercel Live Site](https://your-live-site-url.com)
+- Live Site URL: [Vercel Live Site](https://loopstudios-landing-page-weld-nine.vercel.app/)
 
 ## My process
 
