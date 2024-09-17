@@ -1,0 +1,477 @@
+$dark-gray: hsl(0, 0%, 55%);
+$very-dark-gray: hsl(0, 0%, 41%);
+
+@font-face {
+  font-family: J-Sans;
+  src: url(/fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Alata;
+  src: url(/fonts/Alata/Alata-Regular.ttf);
+}
+
+// MIXINS
+@mixin flexbox($fd: row, $ai: center, $jc: center) {
+  display: flex;
+  flex-direction: $fd;
+  align-items: $ai;
+  justify-content: $jc;
+}
+@mixin font($ff, $fs, $fw) {
+  font-family: $ff;
+  font-size: $fs;
+  font-weight: $fw;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100%;
+  height: 100%;
+}
+// inside padding in all sections
+header,
+main,
+footer {
+  width: 100%;
+  padding-inline: 8vw;
+}
+
+h1,
+h2,
+a.link-button {
+  text-transform: uppercase;
+  @include font(J-Sans, 2.5rem, 300);
+}
+
+h1 {
+  max-width: 25rem;
+  border: 2px white solid;
+  color: white;
+  word-spacing: 0.5rem;
+  line-height: 2.5rem;
+  padding: 1.5rem;
+}
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+p,
+small,
+.header-nav a,
+.footer-nav a {
+  @include font(Alata, 15px, 400);
+}
+p {
+  color: $dark-gray;
+  line-height: 1.5rem;
+}
+a,
+a:visited {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+nav ul {
+  list-style: none;
+  @include flexbox(column, center, start);
+  gap: 1rem;
+  color: white;
+}
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 0;
+  font-family: J-Sans, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  position: relative;
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 70%;
+  height: 2px;
+  background-color: currentColor;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+nav ul li a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.logo {
+  max-width: 10rem;
+  img {
+    width: 100%;
+  }
+}
+
+header {
+  width: 100%;
+  height: 90vh;
+  //   background: url(/images/mobile/image-hero.jpg) no-repeat 0 0/ 100% 100%;
+
+  padding-top: 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  //   header background and tint overlay
+  .bg-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .bg-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.747);
+    z-index: -1;
+  }
+  .header-main {
+    @include flexbox(row, center, space-between);
+    button {
+      border: none;
+      outline: none;
+      background: none;
+      cursor: pointer;
+    }
+  }
+  .heading {
+    flex-grow: 1;
+    @include flexbox(null, center, start);
+  }
+
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+header::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.658);
+  z-index: -1;
+}
+
+header.menu-on {
+  background: black;
+  height: 100vh;
+  .header-container {
+    position: relative;
+  }
+  .heading {
+    display: none;
+  }
+  .header-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  nav.header-nav ul {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 80vh;
+    left: 0;
+    align-items: start;
+    justify-content: center;
+    li a {
+      @include font(J-Sans, 2rem, 300);
+      text-transform: uppercase;
+      text-align: left;
+    }
+  }
+}
+.hidden {
+  display: none;
+}
+//
+section {
+  margin-block: 5rem;
+  width: 100%;
+  height: 90vh;
+}
+section.description {
+  picture {
+    height: 50%;
+    width: 100%;
+    display: block;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .article {
+    padding: 3rem 1rem 0;
+  }
+  p {
+    text-align: center;
+  }
+}
+@media screen and (min-width: 1000px) {
+  section.description {
+    max-height: 500px;
+    position: relative;
+
+    picture,
+    .article {
+      position: absolute;
+    }
+    picture {
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 70%;
+      img {
+        object-fit: cover;
+      }
+    }
+    .article {
+      background-color: white;
+      padding: 5rem 0 0 4.25rem;
+      max-width: 51%;
+      bottom: 0;
+      right: 0;
+      h2,
+      p {
+        text-align: start;
+      }
+    }
+  }
+}
+section.product-catalog {
+  height: 100%;
+  width: 100%;
+  @include flexbox(column, center, center);
+
+  .products-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 1rem;
+    margin-block: 1rem 2rem;
+
+    .product {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      a {
+        position: absolute;
+        bottom: 3vh;
+        left: 3vw;
+        z-index: 1;
+        @extend h2;
+        font-size: 1.5rem;
+        margin: 0;
+        line-height: 1.5rem;
+        text-align: left;
+      }
+    }
+    .product::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      inset: 0;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.575) 15%,
+        rgba(0, 0, 0, 0.322) 30%,
+        rgba(0, 0, 0, 0.158) 40%
+      );
+    }
+    .product:hover::before {
+      background: rgba(255, 255, 255, 0.74);
+    }
+    .product:hover {
+      a {
+        color: black;
+      }
+      cursor: pointer;
+    }
+  }
+  a.link-button {
+    color: black;
+    padding: 0.5rem 2rem;
+    border: solid 2px black;
+    @include font(Alata, 1rem, 400);
+    letter-spacing: 4px;
+    width: fit-content;
+    transition: all 0.25s ease-in-out;
+  }
+  a.link-button:hover {
+    background-color: black;
+    color: white;
+    border-radius: 0.25rem;
+  }
+}
+//
+footer {
+  background-color: black;
+  padding-block: 3rem;
+  display: grid;
+  place-items: center;
+  gap: 2rem;
+
+  .socials ul {
+    flex-direction: row;
+  }
+  small {
+    color: $very-dark-gray;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .footer-nav ul {
+    flex-direction: row;
+  }
+}
+@media screen and (min-width: 701px) {
+  header,
+  main,
+  footer {
+    width: 100%;
+    padding-inline: 15vw;
+  }
+  section.product-catalog .products-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    .product-1,
+    .product-2 {
+      grid-row: 1/2;
+    }
+    .product-3,
+    .product-4 {
+      grid-row: 2/3;
+    }
+    .product-5,
+    .product-6 {
+      grid-row: 3/4;
+    }
+    .product-7,
+    .product-8 {
+      grid-row: 4/5;
+    }
+    .product::before {
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.575) 25%,
+        rgba(0, 0, 0, 0.322) 35%,
+        rgba(0, 0, 0, 0.158) 45%
+      );
+    }
+
+    .product a {
+      left: 1vw;
+      bottom: 2vh;
+    }
+  }
+}
+@media screen and (min-width: 750px) {
+  header {
+    .header-container .header-main-container {
+      @include flexbox(row, center, space-between);
+      .header-main button {
+        display: none;
+      }
+      .header-nav {
+        display: block;
+        ul {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 850px) {
+  section.product-catalog .products-container {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    .product-1,
+    .product-2,
+    .product-3,
+    .product-4 {
+      grid-row: 1/2;
+    }
+    .product-5,
+    .product-6,
+    .product-7,
+    .product-8 {
+      grid-row: 2/3;
+    }
+  }
+  .header-nav {
+    gap: 1.5rem;
+  }
+  nav ul {
+    flex-direction: row;
+  }
+  footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    .logo,
+    .footer-nav {
+      grid-column: 1/2;
+      justify-self: start;
+    }
+    .socials,
+    small {
+      grid-column: 2/3;
+      justify-self: end;
+    }
+    .footer-nav {
+      gap: 3rem;
+      grid-row: 2/3;
+      width: 100%;
+      ul {
+        justify-content: space-between;
+        gap: 0;
+      }
+    }
+  }
+}
+@media screen and (min-width: 1000px) {
+  .header-nav ul {
+    gap: 3rem;
+  }
+}
